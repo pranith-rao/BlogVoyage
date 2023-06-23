@@ -6,6 +6,21 @@ import "./LoginComponent.css";
 import background from "../../assets/login.avif";
 
 export default function LoginComponent() {
+  const [loginData, setLoginData] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const handleData = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setLoginData({ ...loginData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div
       style={{
@@ -35,6 +50,10 @@ export default function LoginComponent() {
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
+                    name="email"
+                    autoComplete="off"
+                    value={loginData.name}
+                    onChange={handleData}
                     required
                   />
                 </Form.Group>
@@ -43,11 +62,18 @@ export default function LoginComponent() {
                   <Form.Control
                     type="password"
                     placeholder="Password"
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleData}
                     required
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <Button variant="success" type="submit">
+                  <Button
+                    variant="success"
+                    type="submit"
+                    onSubmit={handleSubmit}
+                  >
                     Submit
                   </Button>
                 </div>

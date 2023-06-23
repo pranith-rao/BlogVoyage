@@ -5,7 +5,24 @@ import Card from "react-bootstrap/Card";
 import "./RegisterComponent.css";
 import background from "../../assets/login.avif";
 
-export default function LoginComponent() {
+export default function RegisterComponent() {
+  const [registerData, setRegisterData] = React.useState({
+    username: "",
+    email: "",
+    password1: "",
+    password2: "",
+  });
+
+  const handleData = (e) => {
+    const property = e.target.name;
+    const value = e.target.value;
+    setRegisterData({ ...registerData, [property]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div
       style={{
@@ -35,6 +52,10 @@ export default function LoginComponent() {
                   <Form.Control
                     type="text"
                     placeholder="Enter your username"
+                    name="username"
+                    value={registerData.username}
+                    onChange={handleData}
+                    autoComplete="off"
                     required
                   />
                 </Form.Group>
@@ -43,6 +64,10 @@ export default function LoginComponent() {
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
+                    name="email"
+                    value={registerData.email}
+                    onChange={handleData}
+                    autoComplete="off"
                     required
                   />
                 </Form.Group>
@@ -51,6 +76,9 @@ export default function LoginComponent() {
                   <Form.Control
                     type="password"
                     placeholder="Password"
+                    name="password1"
+                    value={registerData.password1}
+                    onChange={handleData}
                     required
                   />
                 </Form.Group>
@@ -59,11 +87,18 @@ export default function LoginComponent() {
                   <Form.Control
                     type="password"
                     placeholder="Confirm Password"
+                    name="password2"
+                    value={registerData.password2}
+                    onChange={handleData}
                     required
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <Button variant="success" type="submit">
+                  <Button
+                    variant="success"
+                    type="submit"
+                    onSubmit={handleSubmit}
+                  >
                     Submit
                   </Button>
                 </div>
