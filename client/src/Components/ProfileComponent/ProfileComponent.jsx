@@ -4,10 +4,12 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Navbar from "../NavbarComponent/NavbarComponent";
 
 export default function ProfileComponent() {
   return (
     <>
+      <Navbar />
       <div className="d-flex text-center justify-content-center mt-4">
         <Card style={{ width: "28rem", margin: "10px" }}>
           <Card.Img

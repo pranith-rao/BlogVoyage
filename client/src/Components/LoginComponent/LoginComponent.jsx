@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import "./LoginComponent.css";
 import background from "../../assets/login.avif";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginComponent() {
-  const [loginData, setLoginData] = React.useState({
-    email: "",
+  const [loginData, setLoginData] = useState({
+    username: "",
     password: "",
   });
+  const [redirect, setRedirect] = useState(false);
 
   const handleData = (e) => {
     const name = e.target.name;
@@ -17,9 +20,33 @@ export default function LoginComponent() {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/login",
+        loginData
+      );
+      if (response.data.status === 200) {
+        alert(response.data.message);
+        setRedirect(true);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status === 400
+      ) {
+        alert(error.response.data.message);
+      } else {
+        alert(error.message);
+      }
+    }
   };
+
+  if (redirect) {
+    return <Navigate to={"/profile"} />;
+  }
 
   return (
     <div
@@ -44,15 +71,15 @@ export default function LoginComponent() {
               >
                 Login
               </Card.Title>
-              <Form style={{ marginTop: "20px" }}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
+              <Form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Username</Form.Label>
                   <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    name="email"
+                    type="text"
+                    placeholder="Enter Username"
+                    name="username"
                     autoComplete="off"
-                    value={loginData.name}
+                    value={loginData.username}
                     onChange={handleData}
                     required
                   />
@@ -69,11 +96,7 @@ export default function LoginComponent() {
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <Button
-                    variant="success"
-                    type="submit"
-                    onSubmit={handleSubmit}
-                  >
+                  <Button variant="success" type="submit">
                     Submit
                   </Button>
                 </div>

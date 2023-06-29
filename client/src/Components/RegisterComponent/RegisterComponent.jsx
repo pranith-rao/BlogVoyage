@@ -4,14 +4,18 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import "./RegisterComponent.css";
 import background from "../../assets/login.avif";
+import axios from "axios";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 export default function RegisterComponent() {
-  const [registerData, setRegisterData] = React.useState({
+  const [registerData, setRegisterData] = useState({
     username: "",
     email: "",
     password1: "",
     password2: "",
   });
+  const [redirect, setRedirect] = useState(false);
 
   const handleData = (e) => {
     const property = e.target.name;
@@ -19,10 +23,33 @@ export default function RegisterComponent() {
     setRegisterData({ ...registerData, [property]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/register",
+        registerData
+      );
+      if (response.data.status === 200) {
+        alert(response.data.message);
+        setRedirect(true);
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status === 400
+      ) {
+        alert(error.response.data.message);
+      } else {
+        alert(error.message);
+      }
+    }
   };
 
+  if (redirect) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <div
       style={{
@@ -46,7 +73,7 @@ export default function RegisterComponent() {
               >
                 Registration
               </Card.Title>
-              <Form style={{ marginTop: "20px" }}>
+              <Form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
@@ -94,11 +121,7 @@ export default function RegisterComponent() {
                   />
                 </Form.Group>
                 <div className="text-center">
-                  <Button
-                    variant="success"
-                    type="submit"
-                    onSubmit={handleSubmit}
-                  >
+                  <Button variant="success" type="submit">
                     Submit
                   </Button>
                 </div>
