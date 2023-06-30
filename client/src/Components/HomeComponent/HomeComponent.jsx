@@ -1,40 +1,151 @@
 import React from "react";
-import Carousel from "react-bootstrap/Carousel";
-import c1 from "../../assets/c1.avif";
-import c2 from "../../assets/c2.avif";
-import c3 from "../../assets/c3.avif";
 import NavbarComponent from "../NavbarComponent/NavbarComponent";
 import "./HomeComponent.css";
+import Card from "react-bootstrap/Card";
+import bg from "../../assets/bg.jpg";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 
 export default function HomeComponent() {
   return (
     <>
       <NavbarComponent />
-      <Carousel className="carousel">
-        <Carousel.Item style={{ height: "550px" }}>
-          <img className="d-block w-100" src={c1} alt="First slide" />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item style={{ height: "550px" }}>
-          <img className="d-block w-100" src={c2} alt="Second slide" />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item style={{ height: "550px" }}>
-          <img className="d-block w-100" src={c3} alt="Third slide" />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <Card className="bg-dark text-white">
+        <Card.Img
+          src={bg}
+          alt="Card image"
+          style={{ height: "300px", backgroundSize: "cover" }}
+        />
+        <Card.ImgOverlay style={{ textAlign: "center", top: "25%" }}>
+          <Card.Title>
+            <h1>BLOGVOYAGE</h1>
+          </Card.Title>
+          <Card.Text>
+            <h5>
+              Where Words Unleash Their Power: Inspiring Minds, One Blog at a
+              Time
+            </h5>
+          </Card.Text>
+        </Card.ImgOverlay>
+      </Card>
+      <h2
+        style={{ textAlign: "center", fontWeight: "bold", marginTop: "50px" }}
+      >
+        _____FEATURED BLOGS_____
+      </h2>
+      <Row>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card border={"info"} style={{ width: "18rem", marginTop: "30px" }}>
+            <Card.Header className="text-center">Blog Title</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Blog Description: Some quick example text to build on the card
+                title and make up the bulk of the card's content.
+              </Card.Text>
+              <div className="text-center">
+                <Button variant="info" size="sm">
+                  Read More
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Card className="bg-dark text-white mt-5">
+        <Card.Img
+          src={bg}
+          alt="Card image"
+          style={{ height: "50px", backgroundSize: "cover" }}
+        />
+        <Card.ImgOverlay style={{ textAlign: "center", top: "25%" }}>
+          <Card.Text>
+            <h5>
+              Footer
+            </h5>
+          </Card.Text>
+        </Card.ImgOverlay>
+      </Card>
     </>
   );
 }

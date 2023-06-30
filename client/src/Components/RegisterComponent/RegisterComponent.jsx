@@ -27,7 +27,7 @@ export default function RegisterComponent() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/register",
+        "http://localhost:3001/user/register",
         registerData
       );
       if (response.data.status === 200) {
@@ -55,89 +55,87 @@ export default function RegisterComponent() {
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
-        height: "100vh",
-        width: "100vw",
         overflow: "hidden",
       }}
     >
-      <div className="vertical-center">
-        <div className="row justify-content-center">
-          <Card style={{ width: "20rem", marginTop: "50px" }}>
-            <Card.Body>
-              <Card.Title
-                style={{
-                  textAlign: "center",
-                  fontSize: "25px",
-                  textTransform: "uppercase",
-                }}
-              >
-                Registration
-              </Card.Title>
-              <Form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter your username"
-                    name="username"
-                    value={registerData.username}
-                    onChange={handleData}
-                    autoComplete="off"
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    name="email"
-                    value={registerData.email}
-                    onChange={handleData}
-                    autoComplete="off"
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    name="password1"
-                    value={registerData.password1}
-                    onChange={handleData}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={registerData.password2}
-                    onChange={handleData}
-                    required
-                  />
-                </Form.Group>
-                <div className="text-center">
-                  <Button variant="success" type="submit">
-                    Submit
-                  </Button>
-                </div>
-                <div className="text-center mt-3">
-                  Already have an Account?{" "}
-                  <a
-                    href="/login"
-                    style={{ textDecoration: "none", color: "green" }}
-                  >
-                    Login
-                  </a>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </div>
+      <div className="row justify-content-center">
+        <Card
+          style={{ width: "20rem", marginTop: "40px", marginBottom: "40px" }}
+        >
+          <Card.Body>
+            <Card.Title
+              style={{
+                textAlign: "center",
+                fontSize: "25px",
+                textTransform: "uppercase",
+              }}
+            >
+              Registration
+            </Card.Title>
+            <Form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
+              <Form.Group className="mb-2">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your username"
+                  name="username"
+                  value={registerData.username}
+                  onChange={handleData}
+                  autoComplete="off"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={registerData.email}
+                  onChange={handleData}
+                  autoComplete="off"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  name="password1"
+                  value={registerData.password1}
+                  onChange={handleData}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="password2"
+                  value={registerData.password2}
+                  onChange={handleData}
+                  required
+                />
+              </Form.Group>
+              <div className="text-center">
+                <Button variant="success" type="submit">
+                  Submit
+                </Button>
+              </div>
+              <div className="text-center mt-3">
+                Already have an Account?{" "}
+                <a
+                  href="/login"
+                  style={{ textDecoration: "none", color: "green" }}
+                >
+                  Login
+                </a>
+              </div>
+            </Form>
+          </Card.Body>
+        </Card>
       </div>
     </div>
   );

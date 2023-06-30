@@ -6,8 +6,10 @@ import "./LoginComponent.css";
 import background from "../../assets/login.avif";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 export default function LoginComponent() {
+  const cookies = new Cookies();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -24,11 +26,12 @@ export default function LoginComponent() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/login",
+        "http://localhost:3001/user/login",
         loginData
       );
       if (response.data.status === 200) {
         alert(response.data.message);
+        cookies.set("token", response.data.token);
         setRedirect(true);
       }
     } catch (error) {
@@ -45,7 +48,7 @@ export default function LoginComponent() {
   };
 
   if (redirect) {
-    return <Navigate to={"/profile"} />;
+    return <Navigate to={"/"} />;
   }
 
   return (
@@ -53,14 +56,15 @@ export default function LoginComponent() {
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
-        height: "100vh",
-        width: "100vw",
         overflow: "hidden",
       }}
     >
       <div className="vertical-center">
         <div className="row justify-content-center">
-          <Card style={{ width: "20rem", marginTop: "150px" }} className="card">
+          <Card
+            style={{ width: "20rem", marginTop: "133px", marginBottom: "80px" }}
+            className="card"
+          >
             <Card.Body>
               <Card.Title
                 style={{

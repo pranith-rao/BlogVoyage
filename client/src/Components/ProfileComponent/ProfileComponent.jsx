@@ -5,8 +5,30 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../NavbarComponent/NavbarComponent";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
 
 export default function ProfileComponent() {
+  const cookies = new Cookies();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const getDetails = async () => {
+    try {
+      const data = await axios.get("http://localhost:3001/user/profile", {
+        headers: { authorization: `${cookies.get("token")}` },
+      });
+      setUsername(data.data.userData.username);
+      setEmail(data.data.userData.email);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -18,9 +40,11 @@ export default function ProfileComponent() {
             src="src/assets/profile.png"
           />
           <Card.Body>
-            <p style={{ fontSize: "20px" }}>Username: ABCDE</p>
-            <p style={{ fontSize: "20px" }}>Email: a@b.com</p>
-            <Button variant="primary">Update Profile</Button>
+            <p style={{ fontSize: "20px" }}>Username: {username}</p>
+            <p style={{ fontSize: "20px" }}>Email: {email}</p>
+            <Button variant="primary" href="/edit_profile">
+              Update Profile
+            </Button>
           </Card.Body>
         </Card>
       </div>

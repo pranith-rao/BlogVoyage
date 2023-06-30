@@ -5,6 +5,7 @@ import LoginComponent from "./Components/LoginComponent/LoginComponent";
 import HomeComponent from "./Components/HomeComponent/HomeComponent";
 import BlogsComponent from "./Components/BlogsComponent/BlogsComponent";
 import ProfileComponent from "./Components/ProfileComponent/ProfileComponent";
+import EditProfileComponent from "./Components/ProfileComponent/EditProfileComponent";
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
           <Route path="/login" exact element={<LoginComponent />}></Route>
           <Route path="/blogs" exact element={<BlogsComponent />}></Route>
           <Route path="/profile" exact element={<ProfileComponent />}></Route>
+          <Route
+            path="/edit_profile"
+            exact
+            element={<EditProfileComponent />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
