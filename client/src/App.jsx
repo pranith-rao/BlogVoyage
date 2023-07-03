@@ -6,6 +6,7 @@ import HomeComponent from "./Components/HomeComponent/HomeComponent";
 import BlogsComponent from "./Components/BlogsComponent/BlogsComponent";
 import ProfileComponent from "./Components/ProfileComponent/ProfileComponent";
 import EditProfileComponent from "./Components/ProfileComponent/EditProfileComponent";
+import BlogTemplate from "./Components/BlogsComponent/BlogTemplate";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             exact
             element={<EditProfileComponent />}
           ></Route>
+          <Route path="/createBlog" exact element={<BlogTemplate />}></Route>
         </Routes>
       </BrowserRouter>
     </>

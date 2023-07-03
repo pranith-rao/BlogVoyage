@@ -5,9 +5,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <div className="container" style={{marginTop:"50px"}}>
-      <App />
-    </div>
-  </React.StrictMode>
+  <div className="container" style={{ marginTop: "50px" }}>
+    <App />
+  </div>
 );

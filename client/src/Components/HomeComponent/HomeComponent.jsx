@@ -21,11 +21,8 @@ export default function HomeComponent() {
           <Card.Title>
             <h1>BLOGVOYAGE</h1>
           </Card.Title>
-          <Card.Text>
-            <h5>
-              Where Words Unleash Their Power: Inspiring Minds, One Blog at a
-              Time
-            </h5>
+          <Card.Text style={{ fontSize: "20px" }}>
+            Where Words Unleash Their Power: Inspiring Minds, One Blog at a Time
           </Card.Text>
         </Card.ImgOverlay>
       </Card>
@@ -139,11 +136,7 @@ export default function HomeComponent() {
           style={{ height: "50px", backgroundSize: "cover" }}
         />
         <Card.ImgOverlay style={{ textAlign: "center", top: "25%" }}>
-          <Card.Text>
-            <h5>
-              Footer
-            </h5>
-          </Card.Text>
+          <Card.Text style={{ fontSize: "20px" }}>Footer</Card.Text>
         </Card.ImgOverlay>
       </Card>
     </>

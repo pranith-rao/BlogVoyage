@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import { Navigate } from "react-router-dom";
 
 export default function NavbarComponent() {
+  const cookies = new Cookies();
+  const [username, setUsername] = useState("");
+  const [redirect2, SetRedirect2] = useState(false);
+
+  const setNavbar = async () => {
+    try {
+      const data = await axios.get("http://localhost:3001/user/navbar", {
+        headers: { authorization: `${cookies.get("token")}` },
+      });
+      setUsername(data.data.userData.username);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setNavbar();
+  }, []);
+
+  const logout = () => {
+    cookies.remove("token");
+    SetRedirect2(true);
+  };
+
+  if (redirect2) {
+    return <Navigate to={"/login"} />;
+  }
+
   return (
     <Navbar
       sticky="top"
@@ -20,11 +50,21 @@ export default function NavbarComponent() {
         className="justify-content-end ms-3"
       >
         <Nav>
-          <Nav.Link href="/Profile">Profile</Nav.Link>
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/register">Register</Nav.Link>
-          {/* <Nav.Link href="/createBlog">Write a Blog</Nav.Link>
-          <Nav.Link href="/logout">Logout</Nav.Link> */}
+          {username && (
+            <>
+              <Nav.Link href="/Profile">Profile</Nav.Link>
+              <Nav.Link href="/createBlog">Write a Blog</Nav.Link>
+              <Nav.Link href="/logout" onClick={logout}>
+                Logout
+              </Nav.Link>
+            </>
+          )}
+          {username === "" && (
+            <>
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -8,5 +8,7 @@ userRouter.post("/register", userController.userRegister);
 userRouter.post("/login", userController.userLogin);
 userRouter.get("/profile", auth, userController.userProfile);
 userRouter.put("/update_profile", auth, userController.userProfileUpdate);
+userRouter.get("/navbar", auth, userController.getNavbar);
+userRouter.post("/addBlog", auth, userController.addBlog);
 
 module.exports = userRouter;

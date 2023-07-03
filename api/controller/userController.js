@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
-const User = require("../db/models/user");
 const jwt = require("jsonwebtoken");
+
+const User = require("../db/models/user");
+const Blog = require("../db/models/blog");
 
 class userController {
   async userRegister(req, res) {
@@ -90,15 +92,6 @@ class userController {
   async userProfileUpdate(req, res) {
     try {
       const userData = await User.findOne({ _id: req.userInfo.id });
-      /* if (userData.username === req.body.username) {      
-        res.status(400).json({ message: "Username already taken" });
-      }
-      const duplicate = await User.findAll({ username: req.body.username });
-      duplicate.map(user => {
-        if(user._id != userData._id){
-          
-        }
-      }) */
       const updatedData = await User.updateOne(
         { _id: userData._id },
         { username: req.body.username, email: req.body.email },
@@ -109,6 +102,30 @@ class userController {
       res
         .status(400)
         .json({ message: "Credentials already taken", status: 400 });
+    }
+  }
+
+  async getNavbar(req, res) {
+    try {
+      const userData = await User.findOne({ _id: req.userInfo.id });
+      res.status(200).json({ userData });
+    } catch (error) {
+      res.status(400).json({ message: error.message, status: 400 });
+    }
+  }
+
+  async addBlog(req, res) {
+    try {
+      const data = req.body;
+      const addBlog = new Blog({
+        title: data.title,
+        summary: data.summary,
+        blog: data.blog,
+      });
+      const added = await addBlog.save();
+      res.status(200).json({ message: "Blog Added Successfull", status: 200 });
+    } catch (error) {
+      res.status(400).json({ message: error.message, status: 400 });
     }
   }
 }
