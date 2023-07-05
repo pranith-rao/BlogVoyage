@@ -13,13 +13,15 @@ export default function ProfileComponent() {
   const cookies = new Cookies();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [blogs, setBlogs] = useState([]);
   const getDetails = async () => {
     try {
-      const data = await axios.get("http://localhost:3001/user/profile", {
+      const data = await axios.get("http://localhost:3001/user/getUserData", {
         headers: { authorization: `${cookies.get("token")}` },
       });
       setUsername(data.data.userData.username);
       setEmail(data.data.userData.email);
+      setBlogs(data.data.blogData);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +44,7 @@ export default function ProfileComponent() {
           <Card.Body>
             <p style={{ fontSize: "20px" }}>Username: {username}</p>
             <p style={{ fontSize: "20px" }}>Email: {email}</p>
-            <Button variant="primary" href="/edit_profile">
+            <Button variant="dark" href="/edit_profile">
               Update Profile
             </Button>
           </Card.Body>
@@ -50,124 +52,45 @@ export default function ProfileComponent() {
       </div>
       <div>
         <Container>
-          <h2 style={{ marginTop: "15px" }}>My Blogs</h2>
+          <h2 style={{ margin: "15px" }}>My Blogs</h2>
           <hr />
-          <Row>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                border={"info"}
-                style={{ width: "18rem", marginTop: "30px" }}
-              >
-                <Card.Header className="text-center">Blog Title</Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    Blog Description: Some quick example text to build on the
-                    card title and make up the bulk of the card's content.
-                  </Card.Text>
-                  <div className="text-center">
-                    <Button variant="info" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+          {blogs.length === 0 ? (
+            <p
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                marginTop: "40px",
+                textTransform: "uppercase",
+              }}
+            >
+              No Blogs Added By You
+            </p>
+          ) : (
+            <Row>
+              {blogs.map((blog) => {
+                return (
+                  <Col key={blog._id} sm={4}>
+                    <Card border={"dark"} style={{ margin: "25px" }}>
+                      <Card.Header
+                        className="text-center"
+                        style={{ textTransform: "uppercase" }}
+                      >
+                        {blog.title}
+                      </Card.Header>
+                      <Card.Body>
+                        <Card.Text>{blog.summary}</Card.Text>
+                        <div className="text-center">
+                          <Button variant="dark" size="sm">
+                            Read More
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+          )}
         </Container>
       </div>
     </>

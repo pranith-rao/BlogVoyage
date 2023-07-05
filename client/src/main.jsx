@@ -1,11 +1,13 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <div className="container" style={{ marginTop: "50px" }}>
-    <App />
-  </div>
+  <StrictMode>
+    <div className="container" style={{ marginTop: "50px" }}>
+      <App />
+    </div>
+  </StrictMode>
 );

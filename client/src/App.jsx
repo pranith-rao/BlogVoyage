@@ -7,6 +7,8 @@ import BlogsComponent from "./Components/BlogsComponent/BlogsComponent";
 import ProfileComponent from "./Components/ProfileComponent/ProfileComponent";
 import EditProfileComponent from "./Components/ProfileComponent/EditProfileComponent";
 import BlogTemplate from "./Components/BlogsComponent/BlogTemplate";
+import ViewBlog from "./Components/BlogsComponent/ViewBlog";
+import EditBlogTemplate from "./Components/BlogsComponent/EditBlogTemplate";
 
 function App() {
   return (
@@ -24,6 +26,12 @@ function App() {
             element={<EditProfileComponent />}
           ></Route>
           <Route path="/createBlog" exact element={<BlogTemplate />}></Route>
+          <Route path="/viewBlog/:id" exact element={<ViewBlog />}></Route>
+          <Route
+            path="/editBlog/:id"
+            exact
+            element={<EditBlogTemplate />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

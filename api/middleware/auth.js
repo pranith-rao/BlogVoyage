@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
 
     const userData = User.findOne({ _id: info._id });
     if (!userData) {
-      res.status(404).json({ message: "User Doesnt exist" });
+      res.status(404).json({ message: "User Doesn't exist" });
     }
 
     next();

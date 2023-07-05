@@ -58,9 +58,12 @@ export default function RegisterComponent() {
         overflow: "hidden",
       }}
     >
+      <Button variant="success" href="/" style={{ margin: "10px" }}>
+        BACK
+      </Button>
       <div className="row justify-content-center">
         <Card
-          style={{ width: "20rem", marginTop: "40px", marginBottom: "40px" }}
+          style={{ width: "20rem", marginBottom: "23px" }}
         >
           <Card.Body>
             <Card.Title

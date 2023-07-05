@@ -27,6 +27,7 @@ export default function NavbarComponent() {
 
   const logout = () => {
     cookies.remove("token");
+    alert("Logged Out Successfully");
     SetRedirect2(true);
   };
 
@@ -54,9 +55,7 @@ export default function NavbarComponent() {
             <>
               <Nav.Link href="/Profile">Profile</Nav.Link>
               <Nav.Link href="/createBlog">Write a Blog</Nav.Link>
-              <Nav.Link href="/logout" onClick={logout}>
-                Logout
-              </Nav.Link>
+              <Nav.Link onClick={logout}>Logout</Nav.Link>
             </>
           )}
           {username === "" && (

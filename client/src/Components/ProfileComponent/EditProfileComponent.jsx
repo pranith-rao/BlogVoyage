@@ -15,7 +15,7 @@ export default function EditProfileComponent() {
 
   const getDetails = async () => {
     try {
-      const data = await axios.get("http://localhost:3001/user/profile", {
+      const data = await axios.get("http://localhost:3001/user/getUserData", {
         headers: { authorization: `${cookies.get("token")}` },
       });
       setUsername(data.data.userData.username);
@@ -30,7 +30,6 @@ export default function EditProfileComponent() {
   }, []);
 
   const handleSubmit = async (e) => {
-    console.log("hi");
     e.preventDefault();
     try {
       const response = await axios.put(

@@ -6,79 +6,61 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./BlogsComponent.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function BlogsComponent() {
+  const [blogData, setBlogData] = useState([]);
+
+  const getBlogs = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/getAllBlogs");
+      setBlogData(response.data.blog);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getBlogs();
+  }, []);
+
   return (
     <>
       <NavbarComponent />
-      <Container>
-        <Row className="mt-4">
-          <Card className="content">
-            <Row>
-              <Col sm={1} className="dateContent">
-                15 June
-              </Col>
-              <Col sm={11}>
-                <Card.Header>Blog Title</Card.Header>
+      <Row>
+        {blogData.map((blog) => {
+          return (
+            <Col key={blog._id} sm={4}>
+              <Card border={"dark"} style={{ margin: "25px" }}>
+                <Card.Header
+                  className="text-center"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {blog.title}
+                </Card.Header>
                 <Card.Body>
-                <Card.Subtitle className="mb-2 text-muted">By username</Card.Subtitle>
-                  <Card.Text>
-                    With supporting text below as a natural lead-in to
-                    additional content...<a href="#">read more</a>
-                  </Card.Text>
-                  <Button variant="outline-primary">#man</Button>{' '}
-                  <Button variant="outline-primary">#humor</Button>{' '}
-                  <Button variant="outline-primary">#life</Button>{' '}
+                  <Card.Text>{blog.summary}</Card.Text>
+                  <div className="text-center">
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      href={`/viewBlog/${blog._id}`}
+                    >
+                      Read More
+                    </Button>
+                  </div>
                 </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-        </Row>
-        <Row className="mt-4">
-          <Card className="content">
-            <Row>
-              <Col sm={1} className="dateContent">
-                15 June
-              </Col>
-              <Col sm={11}>
-                <Card.Header>Blog Title</Card.Header>
-                <Card.Body>
-                <Card.Subtitle className="mb-2 text-muted">By username</Card.Subtitle>
-                  <Card.Text>
-                    With supporting text below as a natural lead-in to
-                    additional content...<a href="#">read more</a>
-                  </Card.Text>
-                  <Button variant="outline-primary">#man</Button>{' '}
-                  <Button variant="outline-primary">#humor</Button>{' '}
-                  <Button variant="outline-primary">#life</Button>{' '}
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-        </Row>
-        <Row className="mt-4">
-          <Card className="content">
-            <Row>
-              <Col sm={1} className="dateContent">
-                15 June
-              </Col>
-              <Col sm={11}>
-                <Card.Header>Blog Title</Card.Header>
-                <Card.Body>
-                <Card.Subtitle className="mb-2 text-muted">By username</Card.Subtitle>
-                  <Card.Text>
-                    With supporting text below as a natural lead-in to
-                    additional content...<a href="#">read more</a>
-                  </Card.Text>
-                  <Button variant="outline-primary">#man</Button>{' '}
-                  <Button variant="outline-primary">#humor</Button>{' '}
-                  <Button variant="outline-primary">#life</Button>{' '}
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-        </Row>
-      </Container>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <Button href="/" variant="dark">
+          BACK
+        </Button>
+      </div>
     </>
   );
 }

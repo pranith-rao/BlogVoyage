@@ -80,10 +80,11 @@ class userController {
     }
   }
 
-  async userProfile(req, res) {
+  async getUserData(req, res) {
     try {
       const userData = await User.findOne({ _id: req.userInfo.id });
-      res.status(200).json({ userData });
+      const blogData = await Blog.find({ addedBy: req.userInfo.username });
+      res.status(200).json({ userData, blogData });
     } catch (error) {
       res.status(400).json({ message: error.message, status: 400 });
     }
@@ -92,7 +93,7 @@ class userController {
   async userProfileUpdate(req, res) {
     try {
       const userData = await User.findOne({ _id: req.userInfo.id });
-      const updatedData = await User.updateOne(
+      const updatedData = await User.findOneAndUpdate(
         { _id: userData._id },
         { username: req.body.username, email: req.body.email },
         { new: true }
@@ -116,14 +117,32 @@ class userController {
 
   async addBlog(req, res) {
     try {
-      const data = req.body;
       const addBlog = new Blog({
-        title: data.title,
-        summary: data.summary,
-        blog: data.blog,
+        title: req.body.title,
+        summary: req.body.summary,
+        blog: req.body.blog,
+        addedBy: req.userInfo.username,
       });
       const added = await addBlog.save();
       res.status(200).json({ message: "Blog Added Successfull", status: 200 });
+    } catch (error) {
+      res.status(400).json({ message: error.message, status: 400 });
+    }
+  }
+
+  async editBlog(req, res) {
+    try {
+      const blogData = await Blog.findOne({ _id: req.params.id });
+      const updatedData = await Blog.findOneAndUpdate(
+        { _id: blogData._id },
+        {
+          title: req.body.title,
+          summary: req.body.summary,
+          blog: req.body.blog,
+        },
+        { new: true }
+      );
+      res.status(200).json({ message: "Blog Updated Successfull", status: 200 });
     } catch (error) {
       res.status(400).json({ message: error.message, status: 400 });
     }

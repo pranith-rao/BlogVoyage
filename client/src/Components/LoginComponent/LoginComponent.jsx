@@ -59,10 +59,13 @@ export default function LoginComponent() {
         overflow: "hidden",
       }}
     >
+      <Button variant="success" href="/" style={{ margin: "10px" }}>
+        BACK
+      </Button>
       <div className="vertical-center">
         <div className="row justify-content-center">
           <Card
-            style={{ width: "20rem", marginTop: "133px", marginBottom: "80px" }}
+            style={{ width: "20rem", marginTop: "88px", marginBottom: "80px" }}
             className="card"
           >
             <Card.Body>
@@ -75,7 +78,7 @@ export default function LoginComponent() {
               >
                 Login
               </Card.Title>
-              <Form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Username</Form.Label>
                   <Form.Control

@@ -1,16 +1,19 @@
 import React from "react";
+import NavbarComponent from "../NavbarComponent/NavbarComponent";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import NavbarComponent from "../NavbarComponent/NavbarComponent";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function BlogTemplate() {
+export default function EditBlogTemplate() {
+  const { id } = useParams();
   const cookies = new Cookies();
   const [redirect, setRedirect] = useState(false);
   const [blogData, setBlogData] = useState({
@@ -18,6 +21,24 @@ export default function BlogTemplate() {
     summary: "",
     blog: "",
   });
+
+  const getBlogData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/getBlog/${id}`);
+      setBlogData({
+        ...blogData,
+        title: response.data.blog.title,
+        summary: response.data.blog.summary,
+        blog: response.data.blog.blog,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getBlogData();
+  }, []);
 
   const handleData = (e) => {
     const name = e.target.name;
@@ -31,8 +52,8 @@ export default function BlogTemplate() {
       if (blogData.blog === "") {
         alert("Blog cant be empty");
       } else {
-        const response = await axios.post(
-          "http://localhost:3001/user/addBlog",
+        const response = await axios.put(
+          `http://localhost:3001/user/editBlog/${id}`,
           blogData,
           {
             headers: { authorization: `${cookies.get("token")}` },
@@ -89,7 +110,7 @@ export default function BlogTemplate() {
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Button variant="dark" size="md" type="submit">
-              POST
+              UPDATE
             </Button>
           </div>
         </Form>
