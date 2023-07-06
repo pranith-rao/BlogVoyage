@@ -1,6 +1,5 @@
 import React from "react";
 import NavbarComponent from "../NavbarComponent/NavbarComponent";
-import "./HomeComponent.css";
 import Card from "react-bootstrap/Card";
 import bg from "../../assets/bg.jpg";
 import Row from "react-bootstrap/Row";
@@ -14,7 +13,9 @@ export default function HomeComponent() {
 
   const getBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/getTopBlogs");
+      const response = await axios.get(
+        "http://localhost:3001/blog/getTopBlogs"
+      );
       setBlogData(response.data.blog);
     } catch (error) {
       console.log(error.message);
@@ -60,38 +61,48 @@ export default function HomeComponent() {
           No Blogs Added
         </p>
       ) : (
-        <Row>
-          {blogData.map((blog) => {
-            return (
-              <Col key={blog._id} sm={4}>
-                <Card border={"dark"} style={{ margin: "25px" }}>
-                  <Card.Header
-                    className="text-center"
-                    style={{ textTransform: "uppercase" }}
-                  >
-                    {blog.title}
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>{blog.summary}</Card.Text>
-                    <div className="text-center">
-                      <Button
-                        variant="dark"
-                        size="sm"
-                        href={`/viewBlog/${blog._id}`}
+        <>
+          <Row>
+            {blogData.map((blog) => {
+              return (
+                <Col key={blog._id} sm={4}>
+                  <Card border={"dark"} style={{ margin: "25px" }}>
+                    <Card.Header
+                      className="text-center"
+                      style={{ textTransform: "uppercase" }}
+                    >
+                      {blog.title}
+                    </Card.Header>
+                    <Card.Body>
+                      <Card.Text
+                        style={{
+                          textAlign: "justify",
+                        }}
                       >
-                        Read More
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
+                        {blog.summary}
+                      </Card.Text>
+                      <div className="text-center">
+                        <Button
+                          variant="dark"
+                          size="sm"
+                          href={`/viewBlog/${blog._id}`}
+                        >
+                          Read More
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Button href="/blogs" variant="dark">
+              VIEW ALL BLOGS
+            </Button>
+          </div>
+        </>
       )}
-      <div style={{ textAlign: "center",marginTop:"20px" }}>
-        <Button href="/blogs" variant="dark">VIEW ALL BLOGS</Button>
-      </div>
       <Card className="bg-dark text-white mt-5">
         <Card.Img
           src={bg}

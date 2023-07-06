@@ -14,7 +14,9 @@ export default function BlogsComponent() {
 
   const getBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/getAllBlogs");
+      const response = await axios.get(
+        "http://localhost:3001/blog/getAllBlogs"
+      );
       setBlogData(response.data.blog);
     } catch (error) {
       console.log(error.message);
@@ -40,7 +42,13 @@ export default function BlogsComponent() {
                   {blog.title}
                 </Card.Header>
                 <Card.Body>
-                  <Card.Text>{blog.summary}</Card.Text>
+                  <Card.Text
+                    style={{
+                      textAlign: "justify",
+                    }}
+                  >
+                    {blog.summary}
+                  </Card.Text>
                   <div className="text-center">
                     <Button
                       variant="dark"

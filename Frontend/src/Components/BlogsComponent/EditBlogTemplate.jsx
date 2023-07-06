@@ -24,7 +24,7 @@ export default function EditBlogTemplate() {
 
   const getBlogData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/getBlog/${id}`);
+      const response = await axios.get(`http://localhost:3001/blog/getBlog/${id}`);
       setBlogData({
         ...blogData,
         title: response.data.blog.title,

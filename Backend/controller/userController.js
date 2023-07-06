@@ -147,6 +147,17 @@ class userController {
       res.status(400).json({ message: error.message, status: 400 });
     }
   }
+
+  async delBlog(req, res) {
+    try {
+      const response = await Blog.findByIdAndRemove(req.params.id);
+      res.status(200).json({ message: "Deleted Successfully", status: 200 });
+    } catch (error) {
+      res.status(500).json({ message: error.message, status: 500 });
+    }
+  };
 }
 
 module.exports = new userController();
+
+

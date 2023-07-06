@@ -2,7 +2,6 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
-import "./RegisterComponent.css";
 import background from "../../assets/login.avif";
 import axios from "axios";
 import { useState } from "react";

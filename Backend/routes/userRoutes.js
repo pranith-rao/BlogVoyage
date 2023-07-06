@@ -11,5 +11,6 @@ userRouter.put("/update_profile", auth, userController.userProfileUpdate);
 userRouter.get("/navbar", auth, userController.getNavbar);
 userRouter.post("/addBlog", auth, userController.addBlog);
 userRouter.put("/editBlog/:id", auth, userController.editBlog);
+userRouter.delete("/delBlog/:id",auth,userController.delBlog);
 
 module.exports = userRouter;

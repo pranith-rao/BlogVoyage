@@ -10,24 +10,10 @@ import { Navigate } from "react-router-dom";
 export default function ViewBlog() {
   const { id } = useParams();
   const [blogData, setBlogData] = useState([]);
-  const [navigate, setNavigate] = useState(false);
-
-  const handleDelete = async () => {
-    try {
-      const delResponse = await axios.delete(
-        `http://localhost:3001/delBlog/${id}`
-      );
-      if (delResponse) {
-        setNavigate(true);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   const getBlogData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/getBlog/${id}`);
+      const response = await axios.get(`http://localhost:3001/blog/getBlog/${id}`);
       setBlogData(response.data.blog);
     } catch (error) {
       console.log(error.message);
@@ -37,10 +23,6 @@ export default function ViewBlog() {
   useState(() => {
     getBlogData();
   }, []);
-
-  if (navigate) {
-    return <Navigate to={"/profile"} />;
-  }
 
   return (
     <>
@@ -52,12 +34,6 @@ export default function ViewBlog() {
           <div
             style={{ display: "flex", justifyContent: "center", gap: "20px" }}
           >
-            <Button variant="dark" href={`/editBlog/${id}`}>
-              Edit
-            </Button>
-            <Button variant="dark" onClick={handleDelete}>
-              Delete
-            </Button>
           </div>
         </div>
         <div style={{ marginTop: "20px", textAlign: "justify" }}>

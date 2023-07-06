@@ -78,9 +78,15 @@ export default function ProfileComponent() {
                         {blog.title}
                       </Card.Header>
                       <Card.Body>
-                        <Card.Text>{blog.summary}</Card.Text>
+                        <Card.Text style={{ textAlign: "justify" }}>
+                          {blog.summary}
+                        </Card.Text>
                         <div className="text-center">
-                          <Button variant="dark" size="sm">
+                          <Button
+                            variant="dark"
+                            href={`/userViewBlog/${blog._id}`}
+                            size="sm"
+                          >
                             Read More
                           </Button>
                         </div>

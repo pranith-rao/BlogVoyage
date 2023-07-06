@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterComponent from "./Components/RegisterComponent/RegisterComponent";
 import LoginComponent from "./Components/LoginComponent/LoginComponent";
@@ -9,6 +8,7 @@ import EditProfileComponent from "./Components/ProfileComponent/EditProfileCompo
 import BlogTemplate from "./Components/BlogsComponent/BlogTemplate";
 import ViewBlog from "./Components/BlogsComponent/ViewBlog";
 import EditBlogTemplate from "./Components/BlogsComponent/EditBlogTemplate";
+import UserViewBlog from "./Components/BlogsComponent/UserViewBlog";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
             exact
             element={<EditBlogTemplate />}
           ></Route>
+          <Route path="/userViewBlog/:id" exact element={<UserViewBlog />}></Route>
         </Routes>
       </BrowserRouter>
     </>
