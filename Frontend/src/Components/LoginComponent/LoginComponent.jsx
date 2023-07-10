@@ -74,16 +74,18 @@ export default function LoginComponent() {
                   fontSize: "30px",
                   textTransform: "uppercase",
                 }}
+                id="heading"
               >
                 Login
               </Card.Title>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Username</Form.Label>
+                  <Form.Label id="usernameLabel">Username</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Username"
                     name="username"
+                    id="usernameInput"
                     autoComplete="off"
                     value={loginData.username}
                     onChange={handleData}
@@ -91,11 +93,12 @@ export default function LoginComponent() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label id="passwordLabel">Password</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Password"
                     name="password"
+                    id="passwordInput"
                     value={loginData.password}
                     onChange={handleData}
                     required
@@ -110,6 +113,7 @@ export default function LoginComponent() {
                   Don't have an account?{" "}
                   <a
                     href="/register"
+                    role="button"
                     style={{ textDecoration: "none", color: "green" }}
                   >
                     Register

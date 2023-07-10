@@ -49,7 +49,7 @@ export default function HomeComponent() {
       >
         _____FEATURED BLOGS_____
       </h2>
-      {blogData.length == 0 ? (
+      {blogData.length === 0 ? (
         <p
           style={{
             textAlign: "center",

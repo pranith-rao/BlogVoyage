@@ -24,7 +24,9 @@ export default function EditBlogTemplate() {
 
   const getBlogData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/blog/getBlog/${id}`);
+      const response = await axios.get(
+        `http://localhost:3001/blog/getBlog/${id}`
+      );
       setBlogData({
         ...blogData,
         title: response.data.blog.title,
@@ -38,7 +40,7 @@ export default function EditBlogTemplate() {
 
   useEffect(() => {
     getBlogData();
-  }, []);
+  },[]);
 
   const handleData = (e) => {
     const name = e.target.name;

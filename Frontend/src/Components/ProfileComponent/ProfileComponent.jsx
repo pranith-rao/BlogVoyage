@@ -8,6 +8,7 @@ import Navbar from "../NavbarComponent/NavbarComponent";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import profile from "../../assets/profile.png";
 
 export default function ProfileComponent() {
   const cookies = new Cookies();
@@ -36,11 +37,7 @@ export default function ProfileComponent() {
       <Navbar />
       <div className="d-flex text-center justify-content-center mt-4">
         <Card style={{ width: "28rem", margin: "10px" }}>
-          <Card.Img
-            variant="top"
-            style={{ height: "200px" }}
-            src="src/assets/profile.png"
-          />
+          <Card.Img variant="top" style={{ height: "200px" }} src={profile} />
           <Card.Body>
             <p style={{ fontSize: "20px" }}>Username: {username}</p>
             <p style={{ fontSize: "20px" }}>Email: {email}</p>
