@@ -22,7 +22,7 @@ export default function ProfileComponent() {
       });
       setUsername(data.data.userData.username);
       setEmail(data.data.userData.email);
-      setBlogs(data.data.blogData);
+      setBlogs(data.data.userData.blogs);
     } catch (error) {
       console.log(error);
     }

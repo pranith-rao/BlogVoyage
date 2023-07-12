@@ -92,7 +92,7 @@ export default function LoginComponent() {
                     required
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3">
                   <Form.Label id="passwordLabel">Password</Form.Label>
                   <Form.Control
                     type="password"

@@ -41,7 +41,9 @@ describe("Tests on Login Page", () => {
 
   it("Should have a button to redirect to the register page", () => {
     const registerLink = wrapper.find("a").filterWhere((link) => {
-      return link.text().includes("Register") && link.prop("href") === "/register";
+      return (
+        link.text().includes("Register") && link.prop("href") === "/register"
+      );
     });
     expect(registerLink.exists()).toBe(true);
   });

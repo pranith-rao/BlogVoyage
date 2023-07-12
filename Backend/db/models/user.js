@@ -17,6 +17,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  blogs: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Blog",
+      required: true,
+    },
+  ],
 });
 
 userSchema.statics.isThisUsernameInUse = async function (username) {

@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../db/models/user");
 const Blog = require("../db/models/blog");
-
 class userController {
   async userRegister(req, res) {
     const data = req.body;
@@ -18,6 +17,7 @@ class userController {
               username: data.username,
               email: data.email,
               password: data.password1,
+              blogs: [],
             });
             const registered = await registerUser.save();
             res
@@ -82,9 +82,10 @@ class userController {
 
   async getUserData(req, res) {
     try {
-      const userData = await User.findOne({ _id: req.userInfo.id });
-      const blogData = await Blog.find({ addedBy: req.userInfo.username });
-      res.status(200).json({ userData, blogData });
+      const userData = await User.findOne({ _id: req.userInfo.id }).populate(
+        "blogs"
+      );
+      res.status(200).json({ userData });
     } catch (error) {
       res.status(400).json({ message: error.message, status: 400 });
     }
@@ -98,7 +99,22 @@ class userController {
         { username: req.body.username, email: req.body.email },
         { new: true }
       );
-      res.status(200).json({ message: "Update Successfull", status: 200 });
+      jwt.sign(
+        {
+          username: req.body.username,
+          id: req.userInfo.id,
+          email: req.body.email,
+        },
+        process.env.SECRET,
+        (err, token) => {
+          if (err) throw err;
+          res.status(200).json({
+            message: "Update Successfull",
+            status: 200,
+            token: token,
+          });
+        }
+      );
     } catch (error) {
       res
         .status(400)
@@ -116,15 +132,22 @@ class userController {
   }
 
   async addBlog(req, res) {
+    const userData = await User.findOne({ _id: req.userInfo.id });
+    console.log(userData);
     try {
       const addBlog = new Blog({
         title: req.body.title,
         summary: req.body.summary,
         blog: req.body.blog,
-        addedBy: req.userInfo.username,
+        addedBy: userData._id,
       });
-      const added = await addBlog.save();
-      res.status(200).json({ message: "Blog Added Successfull", status: 200 });
+      await addBlog.save();
+      userData.blogs.push(addBlog);
+      await userData.save();
+      res.status(200).json({
+        message: "Blog Added Successfull",
+        status: 200,
+      });
     } catch (error) {
       res.status(400).json({ message: error.message, status: 400 });
     }
@@ -142,7 +165,9 @@ class userController {
         },
         { new: true }
       );
-      res.status(200).json({ message: "Blog Updated Successfull", status: 200 });
+      res
+        .status(200)
+        .json({ message: "Blog Updated Successfull", status: 200 });
     } catch (error) {
       res.status(400).json({ message: error.message, status: 400 });
     }
@@ -155,9 +180,7 @@ class userController {
     } catch (error) {
       res.status(500).json({ message: error.message, status: 500 });
     }
-  };
+  }
 }
 
 module.exports = new userController();
-
-

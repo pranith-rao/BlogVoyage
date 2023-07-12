@@ -41,6 +41,7 @@ export default function EditProfileComponent() {
       );
       if (response.data.status === 200) {
         alert(response.data.message);
+        cookies.set("token", response.data.token);
         setRedirect(true);
       }
     } catch (error) {

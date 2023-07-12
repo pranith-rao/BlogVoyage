@@ -4,14 +4,14 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/esm/Container";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 export default function UserViewBlog() {
   const cookies = new Cookies();
   const { id } = useParams();
-  const [blogData, setBlogData] = useState([]);
+  const [blogData, setBlogData] = useState({});
   const [navigate, setNavigate] = useState(false);
 
   const handleDelete = async () => {
@@ -33,16 +33,23 @@ export default function UserViewBlog() {
 
   const getBlogData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/blog/getBlog/${id}`);
-      setBlogData(response.data.blog);
+      const response = await axios.get(
+        `http://localhost:3001/blog/getBlog/${id}`
+      );
+      setBlogData(response.data.blogData);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     getBlogData();
   }, []);
+
+/*   useEffect(() => {
+    console.log("blogData useEffect ", blogData);
+    console.log("addedBy.username useEffect  ", blogData?.addedBy?.username);
+  }, [blogData]); */
 
   if (navigate) {
     return <Navigate to={"/profile"} />;
@@ -54,14 +61,11 @@ export default function UserViewBlog() {
       <Container style={{ marginTop: "30px" }}>
         <div style={{ textAlign: "center" }}>
           <h1 style={{ textTransform: "uppercase" }}>{blogData.title}</h1>
-          <p>Added By: {blogData.addedBy}</p>
+          <p>Added By: {blogData?.addedBy?.username}</p>
           <div
             style={{ display: "flex", justifyContent: "center", gap: "20px" }}
           >
-            <Button
-              variant="dark"
-              href={`/editBlog/${id}`}
-            >
+            <Button variant="dark" href={`/editBlog/${id}`}>
               Edit
             </Button>
             <Button variant="dark" onClick={handleDelete}>

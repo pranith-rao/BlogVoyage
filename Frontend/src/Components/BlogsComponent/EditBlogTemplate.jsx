@@ -29,9 +29,9 @@ export default function EditBlogTemplate() {
       );
       setBlogData({
         ...blogData,
-        title: response.data.blog.title,
-        summary: response.data.blog.summary,
-        blog: response.data.blog.blog,
+        title: response.data.blogData.title,
+        summary: response.data.blogData.summary,
+        blog: response.data.blogData.blog,
       });
     } catch (error) {
       console.log(error.message);

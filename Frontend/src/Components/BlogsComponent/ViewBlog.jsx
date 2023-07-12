@@ -4,22 +4,24 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/esm/Container";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ViewBlog() {
   const { id } = useParams();
-  const [blogData, setBlogData] = useState([]);
+  const [blogData, setBlogData] = useState({});
 
   const getBlogData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/blog/getBlog/${id}`);
-      setBlogData(response.data.blog);
+      const response = await axios.get(
+        `http://localhost:3001/blog/getBlog/${id}`
+      );
+      setBlogData(response.data.blogData);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     getBlogData();
   }, []);
 
@@ -29,11 +31,10 @@ export default function ViewBlog() {
       <Container style={{ marginTop: "30px" }}>
         <div style={{ textAlign: "center" }}>
           <h1 style={{ textTransform: "uppercase" }}>{blogData.title}</h1>
-          <p>Added By: {blogData.addedBy}</p>
+          <p>Added By: {blogData?.addedBy?.username}</p>
           <div
             style={{ display: "flex", justifyContent: "center", gap: "20px" }}
-          >
-          </div>
+          ></div>
         </div>
         <div style={{ marginTop: "20px", textAlign: "justify" }}>
           <div dangerouslySetInnerHTML={{ __html: blogData.blog }} />
