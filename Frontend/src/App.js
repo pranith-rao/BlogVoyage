@@ -15,6 +15,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="*" exact element={<LoginComponent />}></Route>
           <Route path="/" exact element={<HomeComponent />}></Route>
           <Route path="/register" exact element={<RegisterComponent />}></Route>
           <Route path="/login" exact element={<LoginComponent />}></Route>
@@ -32,7 +33,11 @@ function App() {
             exact
             element={<EditBlogTemplate />}
           ></Route>
-          <Route path="/userViewBlog/:id" exact element={<UserViewBlog />}></Route>
+          <Route
+            path="/userViewBlog/:id"
+            exact
+            element={<UserViewBlog />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
