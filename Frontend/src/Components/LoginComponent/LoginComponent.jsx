@@ -6,6 +6,7 @@ import background from "../../assets/login.avif";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import Alert from "react-bootstrap/Alert";
 
 export default function LoginComponent() {
   const cookies = new Cookies();
@@ -14,6 +15,7 @@ export default function LoginComponent() {
     password: "",
   });
   const [redirect, setRedirect] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleData = (e) => {
     const name = e.target.name;
@@ -39,9 +41,9 @@ export default function LoginComponent() {
         error.response.data &&
         error.response.data.status === 400
       ) {
-        alert(error.response.data.message);
+        setErrorMessage(error.response.data.message);
       } else {
-        alert(error.message);
+        setErrorMessage(error.message);
       }
     }
   };
@@ -78,6 +80,15 @@ export default function LoginComponent() {
               >
                 Login
               </Card.Title>
+              {errorMessage && (
+                <Alert
+                  variant="danger"
+                  className="text-center mt-3"
+                  id="errorMessage"
+                >
+                  {errorMessage}
+                </Alert>
+              )}
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label id="usernameLabel">Username</Form.Label>
