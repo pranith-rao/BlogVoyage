@@ -133,7 +133,6 @@ class userController {
 
   async addBlog(req, res) {
     const userData = await User.findOne({ _id: req.userInfo.id });
-    console.log(userData);
     try {
       const addBlog = new Blog({
         title: req.body.title,

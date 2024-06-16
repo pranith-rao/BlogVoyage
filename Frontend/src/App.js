@@ -9,6 +9,7 @@ import BlogTemplate from "./Components/BlogsComponent/BlogTemplate";
 import ViewBlog from "./Components/BlogsComponent/ViewBlog";
 import EditBlogTemplate from "./Components/BlogsComponent/EditBlogTemplate";
 import UserViewBlog from "./Components/BlogsComponent/UserViewBlog";
+import React from 'react';
 
 function App() {
   return (

@@ -55,7 +55,7 @@ export default function HomeComponent() {
             textAlign: "center",
             fontWeight: "bold",
             marginTop: "40px",
-            textTransform: "uppercase",
+            textTransform: "uppercase"
           }}
         >
           No Blogs Added
@@ -63,7 +63,7 @@ export default function HomeComponent() {
       ) : (
         <>
           <Row>
-            {blogData.map((blog) => {
+            {blogData.map(blog => {
               return (
                 <Col key={blog._id} sm={4}>
                   <Card border={"dark"} style={{ margin: "25px" }}>
@@ -76,7 +76,7 @@ export default function HomeComponent() {
                     <Card.Body>
                       <Card.Text
                         style={{
-                          textAlign: "justify",
+                          textAlign: "justify"
                         }}
                       >
                         {blog.summary}
@@ -109,8 +109,17 @@ export default function HomeComponent() {
           alt="Card image"
           style={{ height: "60px", backgroundSize: "cover" }}
         />
-        <Card.ImgOverlay style={{ textAlign: "center", top: "25%" }}>
-          <Card.Text style={{ fontSize: "20px" }}>Footer</Card.Text>
+        <Card.ImgOverlay style={{ textAlign: "center" }}>
+          <Card.Text
+            style={{
+              fontSize: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Footer
+          </Card.Text>
         </Card.ImgOverlay>
       </Card>
     </>
